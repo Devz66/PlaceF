@@ -9,6 +9,7 @@ import DashboardAlerts from './pages/DashboardAlerts';
 import DashboardGeofence from './pages/DashboardGeofence';
 import DashboardCommands from './pages/DashboardCommands';
 import DashboardTelemetry from './pages/DashboardTelemetry';
+import DashboardFinancial from './pages/DashboardFinancial';
 import DashboardSettings from './pages/DashboardSettings';
 
 // Simple placeholder for modules under development

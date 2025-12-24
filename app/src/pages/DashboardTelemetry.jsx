@@ -1,26 +1,35 @@
 import React, { useState } from 'react';
 import { Activity, Gauge, Battery, Thermometer, AlertCircle, TrendingUp, Cpu, CheckCircle } from 'lucide-react';
 
-const TelemetryCard = ({ title, value, unit, icon: Icon, color, trend }) => (
-  <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex items-center justify-between">
-    <div>
-      <div className="text-gray-500 text-xs font-semibold uppercase tracking-wide mb-1 flex items-center gap-1">
-        <Icon size={14} className="text-gray-400" /> {title}
-      </div>
-      <div className="text-2xl font-bold text-gray-800">
-        {value} <span className="text-sm font-normal text-gray-400">{unit}</span>
-      </div>
-      {trend && (
-        <div className={`text-xs mt-2 font-medium ${trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
-          {trend > 0 ? '+' : ''}{trend}% vs média
+const TelemetryCard = ({ title, value, unit, icon: Icon, color, trend }) => {
+  // Safety check for Icon
+  const IconComponent = Icon || Activity; 
+  // Safety check for color
+  const safeColor = color || 'bg-blue-500';
+  const pulseColor = safeColor.replace('bg-', 'text-'); // Fixed logic: bg-blue-500 -> text-blue-500 for text color
+
+  return (
+    <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex items-center justify-between">
+      <div>
+        <div className="text-gray-500 text-xs font-semibold uppercase tracking-wide mb-1 flex items-center gap-1">
+          <IconComponent size={14} className="text-gray-400" /> {title}
         </div>
-      )}
+        <div className="text-2xl font-bold text-gray-800">
+          {value} <span className="text-sm font-normal text-gray-400">{unit}</span>
+        </div>
+        {trend && (
+          <div className={`text-xs mt-2 font-medium ${trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
+            {trend > 0 ? '+' : ''}{trend}% vs média
+          </div>
+        )}
+      </div>
+      <div className={`w-12 h-12 rounded-full ${safeColor} bg-opacity-10 flex items-center justify-center text-current`}>
+         <div className={`w-2 h-2 rounded-full ${pulseColor} animate-pulse bg-current`} /> 
+         {/* Used bg-current to inherit text color from parent if needed, or just rely on pulseColor class if valid */}
+      </div>
     </div>
-    <div className={`w-12 h-12 rounded-full ${color} bg-opacity-10 flex items-center justify-center text-current`}>
-       <div className={`w-2 h-2 rounded-full ${color.replace('bg-', 'bg-text-')} animate-pulse`} />
-    </div>
-  </div>
-);
+  );
+};
 
 const DashboardTelemetry = () => {
   const [selectedVehicle, setSelectedVehicle] = useState('ABC-1234');
