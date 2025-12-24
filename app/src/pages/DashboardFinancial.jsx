@@ -96,7 +96,7 @@ const DashboardFinancial = () => {
                       {new Date(boleto.dueDate).toLocaleDateString('pt-BR')}
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-800">
-                      R$ {boleto.value.toFixed(2).replace('.', ',')}
+                      R$ {boleto.amount.toFixed(2).replace('.', ',')}
                     </td>
                     <td className="px-6 py-4">
                       <StatusBadge status={boleto.status} />
