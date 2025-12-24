@@ -113,7 +113,7 @@ Mensagem: ${data.mensagem}`;
             </div>
 
             {/* Navbar */}
-            <nav className="navbar fixed-top shadow-sm custom-navbar">
+            <nav className="custom-navbar">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
                         <img src="/images/rastreador.png" alt="Rastreador" />
