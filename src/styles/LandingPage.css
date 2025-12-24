@@ -297,6 +297,20 @@
 .navbar-nav {
     margin-left: auto !important;
     margin-right: 0 !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+    
+    .navbar-toggler {
+        display: none;
+    }
 }
 
 .navbar-brand {
@@ -328,6 +342,8 @@
     transition: all 0.3s ease;
     font-size: 1.050rem !important;
     font-weight: 500 !important;
+    text-decoration: none;
+    display: block;
 }
 
 .nav-link::after {
