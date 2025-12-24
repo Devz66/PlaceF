@@ -18,35 +18,17 @@ const LandingPage = () => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, isTyping]);
 
-    // Background Tracking Elements Animation
+    const [trackingElements, setTrackingElements] = useState([]);
+
+    // Background Tracking Elements Animation - Optimized
     useEffect(() => {
-        const createTrackingElements = () => {
-            const container = document.querySelector('.landing-wrapper');
-            if (!container) return;
-
-            // Remove existing
-            const existing = document.querySelectorAll('.tracking-element');
-            existing.forEach(el => el.remove());
-
-            const numberOfElements = 5;
-            for (let i = 0; i < numberOfElements; i++) {
-                const element = document.createElement('div');
-                element.className = 'tracking-element';
-                
-                const posX = Math.random() * window.innerWidth;
-                const posY = Math.random() * window.innerHeight;
-                
-                element.style.left = `${posX}px`;
-                element.style.top = `${posY}px`;
-                element.style.animationDelay = `${i * 0.5}s`;
-                
-                container.appendChild(element);
-            }
-        };
-
-        createTrackingElements();
-        window.addEventListener('resize', createTrackingElements);
-        return () => window.removeEventListener('resize', createTrackingElements);
+        const elements = Array.from({ length: 5 }).map((_, i) => ({
+            id: i,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${i * 0.5}s`
+        }));
+        setTrackingElements(elements);
     }, []);
 
     // Chat Logic
@@ -106,6 +88,17 @@ Mensagem: ${data.mensagem}`;
             <div className="background-composition">
                 <div className="grid-lines"></div>
                 <div className="radar"></div>
+                {trackingElements.map(el => (
+                    <div 
+                        key={el.id}
+                        className="tracking-element"
+                        style={{
+                            left: el.left,
+                            top: el.top,
+                            animationDelay: el.animationDelay
+                        }}
+                    />
+                ))}
                 <div className="floating-elements">
                     <div className="floating-element satellite"></div>
                     <div className="floating-element car"></div>
