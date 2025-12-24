@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, CircleMarker, Circle } from 'react-leaflet';
 import L from 'leaflet';
-import { Navigation, Wifi, Battery, Clock } from 'lucide-react';
+import { Navigation, Wifi, Battery, Clock, Crosshair } from 'lucide-react';
 import { useVehicles } from '../contexts/VehicleContext';
+import toast from 'react-hot-toast';
 
 // Custom Icons
 const carIcon = new L.Icon({
@@ -30,6 +31,26 @@ const MapUpdater = ({ center }) => {
 const DashboardMap = () => {
   const { vehicles, loading, fetchVehicles } = useVehicles();
   const [selectedId, setSelectedId] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
+  const [mapCenter, setMapCenter] = useState([-23.55052, -46.633308]); // Default SP
+
+  useEffect(() => {
+    // Request User Location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation([latitude, longitude]);
+          setMapCenter([latitude, longitude]);
+          toast.success('Localização encontrada!');
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+          toast.error('Não foi possível obter sua localização.');
+        }
+      );
+    }
+  }, []);
 
   useEffect(() => {
     fetchVehicles();
@@ -39,27 +60,36 @@ const DashboardMap = () => {
   }, [fetchVehicles]);
 
   useEffect(() => {
-    if (!selectedId && vehicles.length > 0) {
-      setSelectedId(vehicles[0].id);
+    // If we have a selected vehicle, center on it. 
+    // BUT if we just loaded user location and no vehicle is manually selected, we prefer user location initially.
+    // However, the logic below auto-selects the first vehicle.
+    // We should probably allow the user to toggle between "Follow User" and "Follow Vehicle".
+    
+    // For now, let's keep the logic simple: 
+    // If user explicitly clicks a vehicle, selectedId changes, and we might want to center on it.
+    // But the requirement says "map should go to current location LIKE MAPS DOES".
+    // Usually Maps starts at user location.
+    
+    if (selectedId) {
+       const vehicle = vehicles.find(v => v.id === selectedId);
+       if (vehicle?.locations?.[0]) {
+           setMapCenter([vehicle.locations[0].latitude, vehicle.locations[0].longitude]);
+       }
     }
-  }, [vehicles, selectedId]);
-
-  const activeVehicle = vehicles.find(v => v.id === selectedId) || vehicles[0];
-  const location = activeVehicle?.locations?.[0];
+  }, [selectedId, vehicles]);
+  
+  // Logic to center on vehicle if no user location is found yet, or if vehicles update
+  // But we want to prioritize user location on startup.
+  
+  const activeVehicle = vehicles.find(v => v.id === selectedId);
   const telemetry = activeVehicle?.telemetry?.[0];
-
-  const defaultCenter = [-23.55052, -46.633308]; // SP
-  const center = location ? [location.latitude, location.longitude] : defaultCenter;
-
-  if (loading && vehicles.length === 0) {
-    return <div className="flex items-center justify-center h-full">Carregando mapa...</div>;
-  }
+  const location = activeVehicle?.locations?.[0];
 
   return (
     <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white">
       {/* Map */}
       <MapContainer 
-        center={center} 
+        center={mapCenter} 
         zoom={13} 
         style={{ height: '100%', width: '100%' }}
         zoomControl={false}
@@ -69,7 +99,25 @@ const DashboardMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         
-        <MapUpdater center={center} />
+        <MapUpdater center={mapCenter} />
+
+        {/* User Location Marker */}
+        {userLocation && (
+            <>
+                <Circle 
+                    center={userLocation}
+                    pathOptions={{ fillColor: 'blue', fillOpacity: 0.1, color: 'blue', weight: 1 }}
+                    radius={500}
+                />
+                <CircleMarker 
+                    center={userLocation} 
+                    radius={8} 
+                    pathOptions={{ color: 'white', fillColor: '#2563eb', fillOpacity: 1, weight: 2 }}
+                >
+                    <Popup>Você está aqui</Popup>
+                </CircleMarker>
+            </>
+        )}
 
         {vehicles.map(vehicle => {
             const loc = vehicle.locations?.[0];
@@ -96,6 +144,23 @@ const DashboardMap = () => {
       </MapContainer>
 
       {/* Floating Status Panel */}
+      <div className="absolute bottom-6 right-4 z-[1000] flex flex-col gap-2">
+        <button 
+            onClick={() => {
+                if (userLocation) {
+                    setMapCenter(userLocation);
+                    setSelectedId(null);
+                } else {
+                    toast.error('Localização não disponível');
+                }
+            }}
+            className="p-3 bg-white rounded-full shadow-lg text-gray-700 hover:text-primary transition-colors"
+            title="Minha Localização"
+        >
+            <Crosshair size={24} />
+        </button>
+      </div>
+
       {activeVehicle && (
         <div className="absolute top-4 right-4 z-[1000] w-72 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-gray-100">
             <div className="flex items-center justify-between mb-4">
