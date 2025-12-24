@@ -4,6 +4,12 @@ import DashboardLayout from './layouts/DashboardLayout';
 import DashboardMap from './pages/DashboardMap';
 import DashboardReports from './pages/DashboardReports';
 import DashboardFleet from './pages/DashboardFleet';
+import DashboardHistory from './pages/DashboardHistory';
+import DashboardAlerts from './pages/DashboardAlerts';
+import DashboardGeofence from './pages/DashboardGeofence';
+import DashboardCommands from './pages/DashboardCommands';
+import DashboardTelemetry from './pages/DashboardTelemetry';
+import DashboardSettings from './pages/DashboardSettings';
 
 // Simple placeholder for modules under development
 const PlaceholderModule = ({ title }) => (
@@ -26,14 +32,14 @@ function App() {
       <Routes>
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<DashboardMap />} />
-          <Route path="history" element={<PlaceholderModule title="Histórico de Rotas" />} />
-          <Route path="alerts" element={<PlaceholderModule title="Gestão de Alertas" />} />
-          <Route path="geofence" element={<PlaceholderModule title="Cercas Virtuais" />} />
+          <Route path="history" element={<DashboardHistory />} />
+          <Route path="alerts" element={<DashboardAlerts />} />
+          <Route path="geofence" element={<DashboardGeofence />} />
           <Route path="reports" element={<DashboardReports />} />
-          <Route path="commands" element={<PlaceholderModule title="Envio de Comandos" />} />
-          <Route path="telemetry" element={<PlaceholderModule title="Telemetria Avançada" />} />
+          <Route path="commands" element={<DashboardCommands />} />
+          <Route path="telemetry" element={<DashboardTelemetry />} />
           <Route path="fleet" element={<DashboardFleet />} />
-          <Route path="settings" element={<PlaceholderModule title="Configurações do Sistema" />} />
+          <Route path="settings" element={<DashboardSettings />} />
         </Route>
         {/* Redirect any unknown route to dashboard */}
         <Route path="*" element={<Navigate to="/" replace />} />
