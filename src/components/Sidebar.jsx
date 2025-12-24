@@ -98,8 +98,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                   }
                 `}
               >
-                <item.icon size={18} className={`transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
-                <span>{item.label}</span>
+                {({ isActive }) => (
+                  <>
+                    <item.icon size={18} className={`transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
+                    <span>{item.label}</span>
+                  </>
+                )}
               </NavLink>
             </li>
           ))}
