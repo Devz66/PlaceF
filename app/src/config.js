@@ -4,4 +4,6 @@ const CONFIG = {
     : 'https://placeb.onrender.com'
 };
 
+console.log('🔌 Conectado ao Backend:', CONFIG.API_URL);
+
 export default CONFIG;
