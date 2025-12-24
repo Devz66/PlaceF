@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const navigate = useNavigate();
   const [userName, setUserName] = React.useState('Usuário Demo');
 
   React.useEffect(() => {
@@ -70,14 +71,14 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="flex items-center gap-3">
           <div className="relative">
             <img 
-              src="https://ui-avatars.com/api/?name=Usuario+Demo&background=0066cc&color=fff" 
+              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=0066cc&color=fff`}
               alt="User" 
               className="w-10 h-10 rounded-full border-2 border-white shadow-sm"
             />
             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></span>
           </div>
           <div>
-            <h5 className="text-sm font-semibold text-gray-800">Usuário Demo</h5>
+            <h5 className="text-sm font-semibold text-gray-800">{userName}</h5>
             <p className="text-xs text-gray-500">Plano Premium</p>
           </div>
         </div>
