@@ -11,7 +11,7 @@ const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [navigate]);
 
@@ -33,7 +33,7 @@ const Login = () => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/'); // Redirect to dashboard
+        navigate('/dashboard'); // Redirect to dashboard
       } else {
         alert('Erro ao entrar: ' + (data.error || 'Credenciais inválidas'));
       }

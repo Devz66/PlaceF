@@ -29,16 +29,18 @@ const PlaceholderModule = ({ title }) => (
     </button>
   </div>
 );
+import LandingPage from './pages/LandingPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardMap />} />
             <Route path="history" element={<DashboardHistory />} />
             <Route path="alerts" element={<DashboardAlerts />} />
@@ -51,7 +53,7 @@ function App() {
             <Route path="settings" element={<DashboardSettings />} />
           </Route>
         </Route>
-        {/* Redirect any unknown route to dashboard */}
+        {/* Redirect any unknown route to home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

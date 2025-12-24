@@ -45,6 +45,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { icon: Settings, label: 'Configurações', path: '/settings' },
   ];
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
   return (
     <aside 
       className={`fixed top-0 left-0 z-40 h-screen transition-transform bg-white border-r border-gray-200 
