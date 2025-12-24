@@ -113,26 +113,26 @@ Mensagem: ${data.mensagem}`;
             </div>
 
             {/* Navbar */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <nav className="navbar fixed-top shadow-sm custom-navbar">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
                         <img src="/images/rastreador.png" alt="Rastreador" />
                         PLACE RASTREIOS
                     </Link>
                     <button 
-                        className="navbar-toggler" 
+                        className="navbar-toggler-custom" 
                         type="button" 
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
-                        <span className="navbar-toggler-icon"></span>
+                        <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
                     </button>
-                    <div className={`collapse navbar-collapse ${mobileMenuOpen ? 'show' : ''}`} id="navbarNav">
-                        <ul className="navbar-nav ms-auto">
-                            <li className="nav-item"><a className="nav-link" href="#home" onClick={() => setMobileMenuOpen(false)}>Home</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#planos" onClick={() => setMobileMenuOpen(false)}>Planos</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#contato" onClick={() => setMobileMenuOpen(false)}>Contato</a></li>
-                            <li className="nav-item">
-                                <Link className="nav-link btn-login-custom" to="/login">Login</Link>
+                    <div className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`} id="navbarNav">
+                        <ul className="navbar-nav-custom">
+                            <li className="nav-item-custom"><a className="nav-link-custom" href="#home" onClick={() => setMobileMenuOpen(false)}>Home</a></li>
+                            <li className="nav-item-custom"><a className="nav-link-custom" href="#planos" onClick={() => setMobileMenuOpen(false)}>Planos</a></li>
+                            <li className="nav-item-custom"><a className="nav-link-custom" href="#contato" onClick={() => setMobileMenuOpen(false)}>Contato</a></li>
+                            <li className="nav-item-custom">
+                                <Link className="nav-link-custom btn-login-custom" to="/login">Login</Link>
                             </li>
                         </ul>
                     </div>
