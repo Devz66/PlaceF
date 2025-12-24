@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Navigation, Wifi, Battery, Clock } from 'lucide-react';
 import { useVehicles } from '../contexts/VehicleContext';
@@ -14,6 +14,18 @@ const carIcon = new L.Icon({
   popupAnchor: [0, -20],
   shadowSize: [41, 41]
 });
+
+// Component to handle map view updates
+const MapUpdater = ({ center }) => {
+  const map = useMap();
+  useEffect(() => {
+    map.flyTo(center, 13, {
+        animate: true,
+        duration: 1.5
+    });
+  }, [center, map]);
+  return null;
+};
 
 const DashboardMap = () => {
   const { vehicles, loading, fetchVehicles } = useVehicles();
@@ -57,6 +69,8 @@ const DashboardMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         
+        <MapUpdater center={center} />
+
         {vehicles.map(vehicle => {
             const loc = vehicle.locations?.[0];
             if (!loc) return null;
