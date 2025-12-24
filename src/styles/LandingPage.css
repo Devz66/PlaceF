@@ -432,7 +432,7 @@ textarea,
 
 /* Navbar Custom Implementation */
 .custom-navbar {
-    background-color: #ffffff !important;
+    background-color: #f0f0f0 !important; /* Light gray background like reference */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -444,7 +444,7 @@ textarea,
     right: 0;
     width: 100%;
     z-index: 1030;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .custom-navbar .container {
@@ -457,20 +457,29 @@ textarea,
 }
 
 .navbar-brand {
-    font-size: 19px; 
-    font-weight: bold; 
-    color: #0066cc !important;
+    font-size: 20px; 
+    font-weight: 800; 
     margin-left: 0;
     display: flex;
     align-items: center;
     text-decoration: none;
     z-index: 1032;
+    letter-spacing: 0.5px;
+}
+
+.brand-text-dark {
+    color: #1a1a1a; /* Dark text for PLACE */
+    margin-right: 4px;
+}
+
+.brand-text-blue {
+    color: #0066cc; /* Blue text for RASTREIOS */
 }
 
 .navbar-brand img {
-    height: 40px;
+    height: 32px; /* Adjusted icon size */
     width: auto;
-    margin-right: 10px;
+    margin-right: 12px;
 }
 
 .navbar-menu {
@@ -488,18 +497,19 @@ textarea,
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 1.5rem;
+    gap: 2rem; /* Increased gap */
+    align-items: center;
 }
 
 .nav-link-custom {
-    color: #333333 !important;
+    color: #4a5568 !important; /* Dark gray for links */
     text-decoration: none;
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 500;
     padding: 0.5rem 0;
     position: relative;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
     display: flex;
     align-items: center;
 }
@@ -509,19 +519,29 @@ textarea,
 }
 
 .nav-link-custom::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-color);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
+    display: none; /* Removed underline animation for cleaner look */
 }
 
-.nav-link-custom:hover::after {
-    width: 100%;
+/* Login Button Specific Styles */
+.btn-login-custom {
+    background-color: #0066cc !important;
+    color: white !important;
+    padding: 8px 24px !important;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 102, 204, 0.2);
+}
+
+.btn-login-custom:hover {
+    background-color: #0052a3 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 102, 204, 0.3);
+}
+
+.btn-login-custom i {
+    font-size: 0.9em;
 }
 
 .navbar-toggler-custom {

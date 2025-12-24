@@ -117,8 +117,9 @@ Mensagem: ${data.mensagem}`;
             <nav className="custom-navbar">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
-                        <img src="/images/rastreador.png" alt="Rastreador" />
-                        PLACE RASTREIOS
+                        <img src="/images/signal.svg" alt="Rastreador" />
+                        <span className="brand-text-dark">PLACE</span>
+                        <span className="brand-text-blue">RASTREIOS</span>
                     </Link>
                     <button 
                         className="navbar-toggler-custom" 
@@ -133,7 +134,9 @@ Mensagem: ${data.mensagem}`;
                             <li className="nav-item-custom"><a className="nav-link-custom" href="#planos" onClick={() => setMobileMenuOpen(false)}>Planos</a></li>
                             <li className="nav-item-custom"><a className="nav-link-custom" href="#contato" onClick={() => setMobileMenuOpen(false)}>Contato</a></li>
                             <li className="nav-item-custom">
-                                <Link className="nav-link-custom btn-login-custom" to="/login">Login</Link>
+                                <Link className="nav-link-custom btn-login-custom" to="/login">
+                                    <i className="fas fa-sign-in-alt me-2"></i> Login
+                                </Link>
                             </li>
                         </ul>
                     </div>
