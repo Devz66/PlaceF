@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Activity, Gauge, Battery, Thermometer, AlertCircle, TrendingUp, Cpu, CheckCircle, Play, RefreshCw } from 'lucide-react';
 import { api } from '../utils/api';
+import toast from 'react-hot-toast';
+import { useVehicles } from '../contexts/VehicleContext';
 
 const TelemetryCard = ({ title, value, unit, icon: Icon, color, trend }) => {
   const IconComponent = Icon || Activity; 
@@ -30,7 +32,8 @@ const TelemetryCard = ({ title, value, unit, icon: Icon, color, trend }) => {
 };
 
 const DashboardTelemetry = () => {
-  const [selectedVehicle, setSelectedVehicle] = useState('1'); // Defaulting to ID 1
+  const { vehicles, fetchVehicles } = useVehicles();
+  const [selectedVehicle, setSelectedVehicle] = useState('');
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     current: {},
@@ -39,10 +42,19 @@ const DashboardTelemetry = () => {
   });
   const [simulating, setSimulating] = useState(false);
 
+  useEffect(() => {
+    fetchVehicles();
+  }, [fetchVehicles]);
+
+  useEffect(() => {
+    if (!selectedVehicle && vehicles.length > 0) {
+      setSelectedVehicle(vehicles[0].id);
+    }
+  }, [vehicles, selectedVehicle]);
+
   const fetchTelemetry = async () => {
+    if (!selectedVehicle) return;
     try {
-      // In a real app, you'd fetch the list of vehicles first to populate the select
-      // Here we assume vehicle ID 1 exists for the user
       const data = await api.get(`/api/telemetry/${selectedVehicle}/stats`);
       setStats(data);
     } catch (error) {
@@ -74,9 +86,10 @@ const DashboardTelemetry = () => {
 
       await api.post('/api/telemetry', randomData);
       // Data will be fetched on next interval
+      toast.success('Dados simulados enviados!');
     } catch (error) {
       console.error('Simulation error:', error);
-      alert('Erro ao simular dados. Verifique o console.');
+      toast.error('Erro ao simular dados. Verifique o console.');
     } finally {
       setSimulating(false);
     }
@@ -93,6 +106,16 @@ const DashboardTelemetry = () => {
         </div>
         
         <div className="flex items-center gap-2">
+          <select 
+            className="p-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+            value={selectedVehicle}
+            onChange={(e) => setSelectedVehicle(e.target.value)}
+          >
+            {vehicles.map(v => (
+              <option key={v.id} value={v.id}>{v.plate} - {v.model}</option>
+            ))}
+          </select>
+
           <button 
             onClick={handleSimulate}
             disabled={simulating}

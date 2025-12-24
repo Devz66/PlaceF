@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, QrCode, History, DollarSign, Download, Search, CheckCircle2 as CheckCircle, AlertTriangle, Clock, Copy, Printer } from 'lucide-react';
 import { api } from '../utils/api';
+import toast from 'react-hot-toast';
 import { financialMockData } from '../data/financialMock';
 
 const StatusBadge = ({ status }) => {
   const styles = {
-    pago: 'bg-green-100 text-green-800',
-    sucesso: 'bg-green-100 text-green-800',
-    completed: 'bg-green-100 text-green-800',
-    pendente: 'bg-yellow-100 text-yellow-800',
-    vencido: 'bg-red-100 text-red-800',
+    pago: 'bg-green-100 text-green-700 border border-green-200',
+    sucesso: 'bg-green-100 text-green-700 border border-green-200',
+    completed: 'bg-green-100 text-green-700 border border-green-200',
+    pendente: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
+    vencido: 'bg-red-50 text-red-700 border border-red-200',
   };
 
   const labels = {
@@ -111,11 +112,17 @@ const DashboardFinancial = () => {
                     </td>
                     <td className="px-6 py-4 text-right">
                       {boleto.status !== 'pago' ? (
-                        <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
+                        <button 
+                          onClick={() => toast.success('2ª Via do boleto enviada para o seu email!')}
+                          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
+                        >
                           <Printer size={16} /> 2ª Via
                         </button>
                       ) : (
-                        <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                        <button 
+                          onClick={() => toast.success('Download do recibo iniciado')}
+                          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                        >
                           <Download size={16} /> Recibo
                         </button>
                       )}
@@ -138,6 +145,12 @@ const DashboardFinancial = () => {
     const handleGeneratePix = (e) => {
       e.preventDefault();
       setGenerated(true);
+      toast.success('QR Code PIX gerado com sucesso!');
+    };
+
+    const handleCopyPix = () => {
+      navigator.clipboard.writeText("00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540510.005802BR5913PLACE RASTREIOS6008SAO PAULO62070503***63041D3D");
+      toast.success('Código PIX copiado!');
     };
 
     return (
@@ -222,7 +235,11 @@ const DashboardFinancial = () => {
                   value="00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540510.005802BR5913PLACE RASTREIOS6008SAO PAULO62070503***63041D3D"
                   className="flex-1 p-2 bg-gray-50 border border-gray-200 rounded text-xs text-gray-600 truncate"
                 />
-                <button className="p-2 bg-gray-100 hover:bg-gray-200 rounded text-gray-600" title="Copiar">
+                <button 
+                  onClick={handleCopyPix}
+                  className="p-2 bg-gray-100 hover:bg-gray-200 rounded text-gray-600" 
+                  title="Copiar"
+                >
                   <Copy size={16} />
                 </button>
               </div>

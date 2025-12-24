@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Polyline, Marker, Popup } from 'react-leaflet'
 import { Calendar, Clock, Navigation, Play, Pause, Search, AlertTriangle } from 'lucide-react';
 import L from 'leaflet';
 import { api } from '../utils/api';
+import toast from 'react-hot-toast';
+import { useVehicles } from '../contexts/VehicleContext';
 
 const startIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
@@ -23,7 +25,7 @@ const endIcon = new L.Icon({
 });
 
 const DashboardHistory = () => {
-  const [vehicles, setVehicles] = useState([]);
+  const { vehicles, fetchVehicles } = useVehicles();
   const [selectedVehicleId, setSelectedVehicleId] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [routePoints, setRoutePoints] = useState([]);
@@ -33,19 +35,13 @@ const DashboardHistory = () => {
 
   useEffect(() => {
     fetchVehicles();
-  }, []);
+  }, [fetchVehicles]);
 
-  const fetchVehicles = async () => {
-    try {
-      const data = await api.get('/api/vehicles');
-      setVehicles(data);
-      if (data.length > 0) {
-        setSelectedVehicleId(data[0].id);
-      }
-    } catch (error) {
-      console.error('Error fetching vehicles:', error);
+  useEffect(() => {
+    if (!selectedVehicleId && vehicles.length > 0) {
+      setSelectedVehicleId(vehicles[0].id);
     }
-  };
+  }, [vehicles, selectedVehicleId]);
 
   const handleSearch = async () => {
     if (!selectedVehicleId || !date) return;
@@ -73,7 +69,7 @@ const DashboardHistory = () => {
 
     } catch (error) {
       console.error('Error fetching history:', error);
-      alert('Erro ao buscar histórico');
+      toast.error('Erro ao buscar histórico');
     } finally {
       setLoading(false);
     }

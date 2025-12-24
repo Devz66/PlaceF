@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import CONFIG from '../config';
 
 const Login = () => {
@@ -33,13 +34,14 @@ const Login = () => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
+        toast.success('Login realizado com sucesso!');
         navigate('/dashboard'); // Redirect to dashboard
       } else {
-        alert('Erro ao entrar: ' + (data.error || 'Credenciais inválidas'));
+        toast.error('Erro ao entrar: ' + (data.error || 'Credenciais inválidas'));
       }
     } catch (error) {
       console.error('Erro:', error);
-      alert('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
+      toast.error('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
     } finally {
       setLoading(false);
     }
@@ -81,9 +83,14 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 shadow-lg shadow-blue-600/30"
           >
-            {loading ? 'Entrando...' : 'ENTRAR'}
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                Entrando...
+              </span>
+            ) : 'ENTRAR'}
           </button>
         </form>
 

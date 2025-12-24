@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import CONFIG from '../config';
 
 const Register = () => {
@@ -14,7 +15,7 @@ const Register = () => {
     e.preventDefault();
     
     if (password !== confirmPassword) {
-      alert('As senhas não coincidem!');
+      toast.error('As senhas não coincidem!');
       return;
     }
 
@@ -32,14 +33,14 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Cadastro realizado com sucesso!');
+        toast.success('Cadastro realizado com sucesso!');
         navigate('/login');
       } else {
-        alert('Erro ao cadastrar: ' + (data.error || 'Erro desconhecido'));
+        toast.error('Erro ao cadastrar: ' + (data.error || 'Erro desconhecido'));
       }
     } catch (error) {
       console.error('Erro:', error);
-      alert('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
+      toast.error('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
     } finally {
       setLoading(false);
     }
@@ -103,12 +104,17 @@ const Register = () => {
           </div>
 
           <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
-          >
-            {loading ? 'CRIAR CONTA' : 'CRIAR CONTA'}
-          </button>
+          type="submit"
+          disabled={loading}
+          className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 shadow-lg shadow-blue-600/30"
+        >
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+              Cadastrando...
+            </span>
+          ) : 'CRIAR CONTA'}
+        </button>
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-600">

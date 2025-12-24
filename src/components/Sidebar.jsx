@@ -83,21 +83,21 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </div>
       </div>
 
-      <nav className="p-3 overflow-y-auto h-[calc(100vh-180px)]">
+      <nav className="p-3 overflow-y-auto h-[calc(100vh-180px)] custom-scrollbar">
         <ul className="space-y-1">
           {menuItems.map((item) => (
             <li key={item.path}>
               <NavLink
                 to={item.path}
                 className={({ isActive }) => `
-                  flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm font-medium
+                  group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium
                   ${isActive 
-                    ? 'bg-blue-50 text-primary border-r-2 border-primary' 
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-primary'
+                    ? 'bg-primary text-white shadow-lg shadow-primary/30 translate-x-1' 
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-primary hover:translate-x-1'
                   }
                 `}
               >
-                <item.icon size={18} />
+                <item.icon size={18} className={`transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
                 <span>{item.label}</span>
               </NavLink>
             </li>

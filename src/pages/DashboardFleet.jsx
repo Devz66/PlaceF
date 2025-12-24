@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Truck, Search, MoreVertical, Battery, Signal, MapPin, Plus, X } from 'lucide-react';
 import { api } from '../utils/api';
+import { useVehicles } from '../contexts/VehicleContext';
+import toast from 'react-hot-toast';
 
 const DashboardFleet = () => {
-  const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { vehicles, loading, fetchVehicles } = useVehicles();
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     plate: '',
@@ -15,18 +16,7 @@ const DashboardFleet = () => {
 
   useEffect(() => {
     fetchVehicles();
-  }, []);
-
-  const fetchVehicles = async () => {
-    try {
-      const data = await api.get('/api/vehicles');
-      setVehicles(data);
-    } catch (error) {
-      console.error('Error fetching vehicles:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [fetchVehicles]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,9 +29,10 @@ const DashboardFleet = () => {
       await api.post('/api/vehicles', formData);
       setShowModal(false);
       setFormData({ plate: '', model: '', driver: '' });
+      toast.success('Veículo cadastrado com sucesso!');
       fetchVehicles(); // Refresh list
     } catch (error) {
-      alert('Erro ao cadastrar veículo');
+      toast.error('Erro ao cadastrar veículo');
     }
   };
 
@@ -191,10 +182,10 @@ const DashboardFleet = () => {
 
       {/* Modal Novo Veículo */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 transform transition-all scale-100">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-bold text-gray-800">Novo Veículo</h3>
+              <h3 className="text-xl font-bold text-gray-800">Novo Veículo</h3>
               <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
                 <X size={24} />
               </button>

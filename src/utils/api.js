@@ -40,7 +40,7 @@ export const api = {
       if (!response.ok) {
          if (response.status === 401) {
           localStorage.removeItem('token');
-          window.location.href = '/login.html';
+          window.location.href = '/login';
         }
         throw new Error('API Error');
       }

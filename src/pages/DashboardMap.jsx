@@ -2,52 +2,35 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { Navigation, Wifi, Battery, Clock } from 'lucide-react';
-import { api } from '../utils/api';
+import { useVehicles } from '../contexts/VehicleContext';
 
 // Custom Icons
 const carIcon = new L.Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png', // Fallback
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  iconUrl: '/images/car.svg', // Use local SVG
+  iconRetinaUrl: '/images/car.svg',
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
+  iconSize: [40, 40], // Adjusted size for car icon
+  iconAnchor: [20, 20], // Center anchor
+  popupAnchor: [0, -20],
   shadowSize: [41, 41]
 });
 
 const DashboardMap = () => {
-  const [vehicles, setVehicles] = useState([]);
+  const { vehicles, loading, fetchVehicles } = useVehicles();
   const [selectedId, setSelectedId] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchVehicles = async () => {
-      try {
-        const data = await api.get('/api/vehicles');
-        if (isMounted) {
-          setVehicles(data);
-          // Select first vehicle if none selected
-          if (!selectedId && data.length > 0) {
-            setSelectedId(data[0].id);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching map data:', error);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
     fetchVehicles();
-    const interval = setInterval(fetchVehicles, 5000);
+    const interval = setInterval(() => fetchVehicles(true), 5000);
 
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, [selectedId]);
+    return () => clearInterval(interval);
+  }, [fetchVehicles]);
+
+  useEffect(() => {
+    if (!selectedId && vehicles.length > 0) {
+      setSelectedId(vehicles[0].id);
+    }
+  }, [vehicles, selectedId]);
 
   const activeVehicle = vehicles.find(v => v.id === selectedId) || vehicles[0];
   const location = activeVehicle?.locations?.[0];
