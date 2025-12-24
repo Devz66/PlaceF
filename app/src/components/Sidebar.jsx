@@ -16,6 +16,22 @@ import {
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const [userName, setUserName] = React.useState('Usuário Demo');
+
+  React.useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      try {
+        const userData = JSON.parse(user);
+        if (userData.name) {
+          setUserName(userData.name);
+        }
+      } catch (e) {
+        console.error('Erro ao ler dados do usuário', e);
+      }
+    }
+  }, []);
+
   const menuItems = [
     { icon: Map, label: 'Painel Principal', path: '/' },
     { icon: History, label: 'Histórico', path: '/history' },
