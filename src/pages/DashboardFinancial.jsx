@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, QrCode, History, DollarSign, Download, Search, CheckCircle2 as CheckCircle, AlertTriangle, Clock, Copy, Printer } from 'lucide-react';
 import { api } from '../utils/api';
+import { financialMockData } from '../data/financialMock';
 
 const StatusBadge = ({ status }) => {
   const styles = {
@@ -40,6 +41,13 @@ const DashboardFinancial = () => {
         setFinancialData(data);
       } catch (error) {
         console.error('Error fetching financial data:', error);
+        // Fallback to mock data
+        const mockBoletos = financialMockData.boletos.map(b => ({
+          ...b,
+          type: 'BOLETO',
+          amount: b.value
+        }));
+        setFinancialData(mockBoletos);
       } finally {
         setLoading(false);
       }
