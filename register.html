@@ -65,7 +65,7 @@
                 <h2>Criar Conta</h2>
                 <p class="text-muted">Preencha os dados abaixo para se cadastrar</p>
             </div>
-            <form id="registerForm" onsubmit="event.preventDefault(); alert('Cadastro realizado com sucesso! (Simulação)'); window.location.href='login.html';">
+            <form id="registerForm">
                 <div class="mb-3">
                     <label for="name" class="form-label">Nome Completo</label>
                     <div class="input-group">
@@ -84,7 +84,7 @@
                     <label for="phone" class="form-label">Telefone / WhatsApp</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                        <input type="tel" class="form-control" id="phone" required placeholder="(00) 00000-0000">
+                        <input type="tel" class="form-control" id="phone" placeholder="(00) 00000-0000">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">CRIAR CONTA</button>
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="submitBtn">CRIAR CONTA</button>
             </form>
             <div class="text-center mt-4">
                 <p class="small text-muted">Já tem uma conta? <a href="login.html" class="text-decoration-none">Faça login</a></p>
@@ -112,5 +112,49 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem!');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
+
+            try {
+                const response = await fetch('http://localhost:3000/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Cadastro realizado com sucesso!');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Erro ao cadastrar: ' + (data.error || 'Erro desconhecido'));
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'CRIAR CONTA';
+            }
+        });
+    </script>
 </body>
 </html>
