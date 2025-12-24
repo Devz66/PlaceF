@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   Map, 
   History, 
@@ -100,7 +100,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </nav>
 
       <div className="absolute bottom-0 w-full p-4 border-t bg-white">
-        <button className="flex items-center gap-3 text-red-600 hover:bg-red-50 w-full px-3 py-2 rounded-lg transition-colors text-sm font-medium">
+        <button 
+          onClick={handleLogout}
+          className="flex items-center gap-3 text-red-600 hover:bg-red-50 w-full px-3 py-2 rounded-lg transition-colors text-sm font-medium"
+        >
           <LogOut size={18} />
           <span>Sair</span>
         </button>
