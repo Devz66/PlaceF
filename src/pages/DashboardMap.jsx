@@ -162,7 +162,7 @@ const DashboardMap = () => {
       </div>
 
       {activeVehicle && (
-        <div className="absolute top-4 right-4 z-[1000] w-72 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-gray-100">
+        <div className="absolute top-4 left-4 right-4 md:left-auto md:right-4 md:w-72 z-[1000] bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-gray-100">
             <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-gray-800">{activeVehicle.plate}</h3>
             <span className={`px-2 py-1 rounded text-xs font-bold ${telemetry?.ignition ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
