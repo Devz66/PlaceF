@@ -39,6 +39,7 @@ function App() {
           <Route path="commands" element={<DashboardCommands />} />
           <Route path="telemetry" element={<DashboardTelemetry />} />
           <Route path="fleet" element={<DashboardFleet />} />
+          <Route path="financial" element={<DashboardFinancial />} />
           <Route path="settings" element={<DashboardSettings />} />
         </Route>
         {/* Redirect any unknown route to dashboard */}

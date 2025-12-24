@@ -11,7 +11,8 @@ import {
   Truck, 
   Settings,
   LogOut,
-  Menu
+  Menu,
+  DollarSign
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -24,6 +25,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { icon: Lock, label: 'Comandos', path: '/commands' },
     { icon: Activity, label: 'Telemetria', path: '/telemetry' },
     { icon: Truck, label: 'Frota', path: '/fleet' },
+    { icon: DollarSign, label: 'Financeiro', path: '/financial' },
     { icon: Settings, label: 'Configurações', path: '/settings' },
   ];
 
