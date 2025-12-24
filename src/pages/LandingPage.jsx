@@ -117,9 +117,7 @@ Mensagem: ${data.mensagem}`;
             <nav className="custom-navbar">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
-                        <img src="/images/signal.svg" alt="Rastreador" />
-                        <span className="brand-text-dark">PLACE</span>
-                        <span className="brand-text-blue">RASTREIOS</span>
+                        <img src="/images/Logo.png" alt="Place Rastreios" className="brand-logo-img" />
                     </Link>
                     <button 
                         className="navbar-toggler-custom" 

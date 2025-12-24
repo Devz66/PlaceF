@@ -457,29 +457,17 @@ textarea,
 }
 
 .navbar-brand {
-    font-size: 20px; 
-    font-weight: 800; 
     margin-left: 0;
     display: flex;
     align-items: center;
     text-decoration: none;
     z-index: 1032;
-    letter-spacing: 0.5px;
 }
 
-.brand-text-dark {
-    color: #1a1a1a; /* Dark text for PLACE */
-    margin-right: 4px;
-}
-
-.brand-text-blue {
-    color: #0066cc; /* Blue text for RASTREIOS */
-}
-
-.navbar-brand img {
-    height: 32px; /* Adjusted icon size */
+.brand-logo-img {
+    height: 50px; /* Standard logo height */
     width: auto;
-    margin-right: 12px;
+    object-fit: contain;
 }
 
 .navbar-menu {
