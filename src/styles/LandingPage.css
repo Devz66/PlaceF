@@ -318,6 +318,12 @@
     z-index: 1032;
 }
 
+.navbar-brand img {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+}
+
 .navbar-menu {
     display: flex;
     align-items: center;
