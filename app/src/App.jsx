@@ -31,17 +31,19 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<DashboardLayout />}>
-          <Route index element={<DashboardMap />} />
-          <Route path="history" element={<DashboardHistory />} />
-          <Route path="alerts" element={<DashboardAlerts />} />
-          <Route path="geofence" element={<DashboardGeofence />} />
-          <Route path="reports" element={<DashboardReports />} />
-          <Route path="commands" element={<DashboardCommands />} />
-          <Route path="telemetry" element={<DashboardTelemetry />} />
-          <Route path="fleet" element={<DashboardFleet />} />
-          <Route path="financial" element={<DashboardFinancial />} />
-          <Route path="settings" element={<DashboardSettings />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<DashboardLayout />}>
+            <Route index element={<DashboardMap />} />
+            <Route path="history" element={<DashboardHistory />} />
+            <Route path="alerts" element={<DashboardAlerts />} />
+            <Route path="geofence" element={<DashboardGeofence />} />
+            <Route path="reports" element={<DashboardReports />} />
+            <Route path="commands" element={<DashboardCommands />} />
+            <Route path="telemetry" element={<DashboardTelemetry />} />
+            <Route path="fleet" element={<DashboardFleet />} />
+            <Route path="financial" element={<DashboardFinancial />} />
+            <Route path="settings" element={<DashboardSettings />} />
+          </Route>
         </Route>
         {/* Redirect any unknown route to dashboard */}
         <Route path="*" element={<Navigate to="/" replace />} />
