@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900;
+  }
+}
+
+/* Leaflet Map Fixes */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
