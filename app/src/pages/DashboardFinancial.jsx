@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileText, QrCode, History, DollarSign, Download, Search, CheckCircle, AlertTriangle, Clock, Copy, Printer } from 'lucide-react';
-import { financialMockData } from '../data/financialMock';
+import { api } from '../utils/api';
 
 const StatusBadge = ({ status }) => {
   const styles = {
@@ -30,13 +30,33 @@ const DashboardFinancial = () => {
   const [activeTab, setActiveTab] = useState('boletos'); // boletos, pix, history
   const [searchTerm, setSearchTerm] = useState('');
   const [dateFilter, setDateFilter] = useState('30'); // 7, 30, all
+  const [financialData, setFinancialData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFinancials = async () => {
+      try {
+        const data = await api.get('/api/financial');
+        setFinancialData(data);
+      } catch (error) {
+        console.error('Error fetching financial data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFinancials();
+  }, []);
 
   // Boletos Section Component
   const BoletosSection = () => {
-    const filteredBoletos = financialMockData.boletos.filter(boleto => 
-      boleto.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      boleto.id.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredBoletos = financialData.filter(item => 
+      item.type === 'BOLETO' &&
+      (item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      String(item.id).includes(searchTerm))
     );
+
+    if (loading) return <div className="p-4 text-center">Carregando...</div>;
 
     return (
       <div className="space-y-6">

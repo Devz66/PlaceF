@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Activity, Gauge, Battery, Thermometer, AlertCircle, TrendingUp, Cpu, CheckCircle } from 'lucide-react';
+import { api } from '../utils/api';
 
 const TelemetryCard = ({ title, value, unit, icon: Icon, color, trend }) => {
   // Safety check for Icon
@@ -58,10 +59,10 @@ const DashboardTelemetry = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <TelemetryCard title="Velocidade Atual" value="78" unit="km/h" icon={Gauge} color="bg-blue-500" trend={-5} />
-        <TelemetryCard title="RPM Motor" value="2,450" unit="rpm" icon={Activity} color="bg-orange-500" trend={12} />
-        <TelemetryCard title="Temp. Motor" value="92" unit="°C" icon={Thermometer} color="bg-red-500" />
-        <TelemetryCard title="Voltagem Bateria" value="13.8" unit="V" icon={Battery} color="bg-green-500" />
+        <TelemetryCard title="Velocidade Atual" value={current.speed || 0} unit="km/h" icon={Gauge} color="bg-blue-500" trend={trends.speed || 0} />
+        <TelemetryCard title="RPM Motor" value={current.rpm || 0} unit="rpm" icon={Activity} color="bg-orange-500" />
+        <TelemetryCard title="Temp. Motor" value={current.temp || 0} unit="°C" icon={Thermometer} color="bg-red-500" />
+        <TelemetryCard title="Voltagem Bateria" value={current.battery || 0} unit="V" icon={Battery} color="bg-green-500" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
