@@ -54,10 +54,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   return (
     <aside 
-      className={`fixed top-0 left-0 z-40 h-screen transition-transform bg-white border-r border-gray-200 
+      className={`fixed top-0 left-0 z-40 h-[100dvh] transition-transform bg-white border-r border-gray-200 flex flex-col
       ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 w-64`}
     >
-      <div className="flex items-center justify-between p-4 border-b h-16">
+      <div className="flex items-center justify-between p-4 border-b h-16 flex-none">
         <div className="flex items-center gap-2 font-bold text-primary text-xl">
           <img src="/images/Logo.png" alt="Logo" className="h-8 object-contain" />
           <span>PLACE RASTREIOS</span>
@@ -67,7 +67,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </button>
       </div>
 
-      <div className="p-4 border-b bg-gradient-to-br from-white to-gray-50">
+      <div className="p-4 border-b bg-gradient-to-br from-white to-gray-50 flex-none">
         <div className="flex items-center gap-3">
           <div className="relative">
             <img 
@@ -84,7 +84,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </div>
       </div>
 
-      <nav className="p-3 overflow-y-auto h-[calc(100vh-180px)] custom-scrollbar">
+      <nav className="p-3 overflow-y-auto custom-scrollbar flex-1">
         <ul className="space-y-1">
           {menuItems.map((item) => (
             <li key={item.path}>
@@ -111,7 +111,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </ul>
       </nav>
 
-      <div className="absolute bottom-0 w-full p-4 border-t bg-white">
+      <div className="w-full p-4 border-t bg-white flex-none">
         <button 
           onClick={handleLogout}
           className="flex items-center gap-3 text-red-600 hover:bg-red-50 w-full px-3 py-2 rounded-lg transition-colors text-sm font-medium"
