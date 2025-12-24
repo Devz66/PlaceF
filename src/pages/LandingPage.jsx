@@ -142,11 +142,64 @@ Mensagem: ${data.mensagem}`;
 
             {/* Hero Section */}
             <section id="home" className="hero-section">
-                <div className="container">
-                    <div className="row align-items-center min-vh-100">
-                        <div className="col-lg">
-                            <div className="titulo">RASTREAMENTO EM TEMPO REAL PARA SUA SEGURANÇA</div>
-                            <p className="subtitulo">Monitore seus veículos e tenha tranquilidade 24h por dia.</p>
+                <div className="hero-background">
+                    <img src="/images/banner-rastreament-veicular-mapa.webp" alt="Background Map" />
+                    <div className="hero-overlay"></div>
+                </div>
+                
+                <div className="container position-relative z-2">
+                    <div className="row justify-content-center min-vh-100 align-items-center">
+                        <div className="col-lg-10 text-center">
+                            
+                            <div className="hero-badge-container mb-4">
+                                <span className="hero-badge">
+                                    <span className="dot-pulse"></span>
+                                    Sistema Ativo 24h
+                                </span>
+                            </div>
+
+                            <h1 className="hero-title">
+                                RASTREAMENTO EM<br />
+                                <span className="text-highlight">TEMPO REAL</span> PARA<br />
+                                SUA SEGURANÇA
+                            </h1>
+                            
+                            <p className="hero-subtitle">
+                                Monitore seus veículos particulares ou sua frota empresarial e tenha a
+                                tranquilidade que você merece, 24 horas por dia, na palma da sua mão.
+                            </p>
+
+                            <div className="hero-buttons d-flex justify-content-center gap-3 mb-5 flex-wrap">
+                                <a href="#planos" className="btn btn-primary btn-lg btn-hero">
+                                    Conhecer Planos <i className="fas fa-arrow-right ms-2"></i>
+                                </a>
+                                <button className="btn btn-outline-light btn-lg btn-hero" onClick={() => window.open('https://www.youtube.com/watch?v=placeholder', '_blank')}>
+                                    <i className="fas fa-play-circle ms-2"></i> Ver Demonstração
+                                </button>
+                            </div>
+
+                            <div className="hero-stats-row">
+                                <div className="stat-item">
+                                    <div className="stat-value">+5k</div>
+                                    <div className="stat-label">VEÍCULOS</div>
+                                </div>
+                                <div className="stat-separator"></div>
+                                <div className="stat-item">
+                                    <div className="stat-value">24/7</div>
+                                    <div className="stat-label">SUPORTE</div>
+                                </div>
+                                <div className="stat-separator"></div>
+                                <div className="stat-item">
+                                    <div className="stat-value">100%</div>
+                                    <div className="stat-label">ONLINE</div>
+                                </div>
+                                <div className="stat-separator"></div>
+                                <div className="stat-item">
+                                    <div className="stat-value">APP</div>
+                                    <div className="stat-label">IOS & ANDROID</div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
