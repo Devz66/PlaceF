@@ -60,6 +60,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       <div className="flex items-center justify-between p-4 border-b h-16">
         <div className="flex items-center gap-2 font-bold text-primary text-xl">
           <img src="/images/Logo.png" alt="Logo" className="h-8 object-contain" />
+          <span>PLACE RASTREIOS</span>
         </div>
         <button onClick={toggleSidebar} className="md:hidden text-gray-500 hover:bg-gray-100 p-1 rounded">
           <Menu size={20} />

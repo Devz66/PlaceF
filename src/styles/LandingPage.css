@@ -462,12 +462,25 @@ textarea,
     align-items: center;
     text-decoration: none;
     z-index: 1032;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
 .brand-logo-img {
-    height: 50px; /* Standard logo height */
+    height: 40px; /* Slightly smaller to fit with text */
     width: auto;
     object-fit: contain;
+    margin-right: 10px;
+}
+
+.brand-text-dark {
+    color: #1a1a1a; /* Dark text for PLACE */
+    margin-right: 4px;
+}
+
+.brand-text-blue {
+    color: #0066cc; /* Blue text for RASTREIOS */
 }
 
 .navbar-menu {

@@ -118,6 +118,8 @@ Mensagem: ${data.mensagem}`;
                 <div className="container">
                     <Link className="navbar-brand" to="/">
                         <img src="/images/Logo.png" alt="Place Rastreios" className="brand-logo-img" />
+                        <span className="brand-text-dark">PLACE</span>
+                        <span className="brand-text-blue">RASTREIOS</span>
                     </Link>
                     <button 
                         className="navbar-toggler-custom" 
