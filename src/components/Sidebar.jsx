@@ -34,7 +34,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   }, []);
 
   const menuItems = [
-    { icon: Map, label: 'Painel Principal', path: '/dashboard' },
+    { icon: Map, label: 'Painel Principal', path: '/dashboard', end: true },
     { icon: History, label: 'Histórico', path: '/dashboard/history' },
     { icon: Bell, label: 'Alertas', path: '/dashboard/alerts' },
     { icon: Hexagon, label: 'Cercas', path: '/dashboard/geofence' },
@@ -90,6 +90,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <li key={item.path}>
               <NavLink
                 to={item.path}
+                end={item.end}
                 className={({ isActive }) => `
                   group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium
                   ${isActive 
