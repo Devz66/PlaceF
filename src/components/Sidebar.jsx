@@ -33,16 +33,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   }, []);
 
   const menuItems = [
-    { icon: Map, label: 'Painel Principal', path: '/' },
-    { icon: History, label: 'Histórico', path: '/history' },
-    { icon: Bell, label: 'Alertas', path: '/alerts' },
-    { icon: Hexagon, label: 'Cercas', path: '/geofence' },
-    { icon: FileText, label: 'Relatórios', path: '/reports' },
-    { icon: Lock, label: 'Comandos', path: '/commands' },
-    { icon: Activity, label: 'Telemetria', path: '/telemetry' },
-    { icon: Truck, label: 'Frota', path: '/fleet' },
-    { icon: DollarSign, label: 'Financeiro', path: '/financial' },
-    { icon: Settings, label: 'Configurações', path: '/settings' },
+    { icon: Map, label: 'Painel Principal', path: '/dashboard' },
+    { icon: History, label: 'Histórico', path: '/dashboard/history' },
+    { icon: Bell, label: 'Alertas', path: '/dashboard/alerts' },
+    { icon: Hexagon, label: 'Cercas', path: '/dashboard/geofence' },
+    { icon: FileText, label: 'Relatórios', path: '/dashboard/reports' },
+    { icon: Lock, label: 'Comandos', path: '/dashboard/commands' },
+    { icon: Activity, label: 'Telemetria', path: '/dashboard/telemetry' },
+    { icon: Truck, label: 'Frota', path: '/dashboard/fleet' },
+    { icon: DollarSign, label: 'Financeiro', path: '/dashboard/financial' },
+    { icon: Settings, label: 'Configurações', path: '/dashboard/settings' },
   ];
 
   const handleLogout = () => {
