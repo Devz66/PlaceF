@@ -60,16 +60,8 @@ const ProtectedRoute = () => {
   }
 
   if (!isAuthenticated) {
-    // Redirect to login page
-    // Since login.html is outside the React app (in parent dir or root)
-    // We can't use <Navigate> to a route if it's external.
-    // We'll use window.location.href
-    // Assuming deployed structure: /dashboard/index.html -> /login.html
-    // Dev structure: /app -> ../login.html
-    
-    // For now, let's render a redirect component
-    window.location.href = '/login.html'; // Adjust based on deployment
-    return null;
+    // Redirect to internal login route
+    return <Navigate to="/login" replace />;
   }
 
   return <Outlet />;
