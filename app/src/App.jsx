@@ -12,6 +12,8 @@ import DashboardCommands from './pages/DashboardCommands';
 import DashboardTelemetry from './pages/DashboardTelemetry';
 import DashboardFinancial from './pages/DashboardFinancial';
 import DashboardSettings from './pages/DashboardSettings';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 // Simple placeholder for modules under development
 const PlaceholderModule = ({ title }) => (

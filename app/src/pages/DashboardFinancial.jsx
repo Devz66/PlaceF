@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, QrCode, History, DollarSign, Download, Search, CheckCircle, AlertTriangle, Clock, Copy, Printer } from 'lucide-react';
+import { FileText, QrCode, History, DollarSign, Download, Search, CheckCircle2 as CheckCircle, AlertTriangle, Clock, Copy, Printer } from 'lucide-react';
 import { api } from '../utils/api';
 
 const StatusBadge = ({ status }) => {
