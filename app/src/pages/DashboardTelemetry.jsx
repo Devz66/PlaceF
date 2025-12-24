@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, Gauge, Battery, Thermometer, AlertCircle, TrendingUp, Cpu } from 'lucide-react';
+import { Activity, Gauge, Battery, Thermometer, AlertCircle, TrendingUp, Cpu, CheckCircle } from 'lucide-react';
 
 const TelemetryCard = ({ title, value, unit, icon: Icon, color, trend }) => (
   <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex items-center justify-between">
